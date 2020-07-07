@@ -1,0 +1,59 @@
+---
+title: "Basic Inferential Data Analysis Instructions"
+author: "Dongjun_Cho"
+date: "7/3/2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+##  Load the ToothGrowth data and perform some basic exploratory data analyses
+```{r}
+data(ToothGrowth)
+data <- ToothGrowth
+head(data)
+dim(data)
+
+```
+
+##  Provide a basic summary of the data.
+```{r}
+summary(data)
+library(ggplot2)
+ggplot(data, aes(x= supp, y = len, fill=supp)) + geom_bar(stat="identity")+labs(x= "Dose", y="Tooth") +  facet_grid(. ~ dose)
+
+```
+
+##  Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose. (Only use the techniques from class, even if there's other approaches worth considering)
+
+Hypothesis Tests for length 0.5
+```{r}
+OJ_supp_05  = ToothGrowth$len[ToothGrowth$supp== 'OJ' & ToothGrowth$dose==0.5]
+VC_supp_05  = ToothGrowth$len[ToothGrowth$supp== 'VC' & ToothGrowth$dose==0.5]
+
+t.test(OJ_supp_05, VC_supp_05, alternative = "greater", paired = FALSE)
+
+```
+
+Hypothesis Tests for length 1.0
+```{r}
+OJ_supp_10  = ToothGrowth$len[ToothGrowth$supp== 'OJ' & ToothGrowth$dose==1.0]
+VC_supp_10  = ToothGrowth$len[ToothGrowth$supp== 'VC' & ToothGrowth$dose==1.0]
+
+t.test(OJ_supp_10, VC_supp_10, alternative = "greater", paired = FALSE)
+
+```
+
+
+Hypothesis Tests for length 2.0
+```{r}
+OJ_supp_20  = ToothGrowth$len[ToothGrowth$supp== 'OJ' & ToothGrowth$dose==2.0]
+VC_supp_20  = ToothGrowth$len[ToothGrowth$supp== 'VC' & ToothGrowth$dose==2.0]
+
+t.test(OJ_supp_20, VC_supp_20, alternative = "greater", paired = FALSE)
+
+```
+
+##  State your conclusions and the assumptions needed for your conclusions.
+In general, OJ provides higher tooth growth then VC.
+Increase rate of dose and tooth growth are proportional.
